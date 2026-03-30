@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Artikel – KPBS Pangalengan</title>
+  <link rel="icon" type="image/png" href="Static/Images/logo_kpbs.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue: #1a5276; --blue-dark: #154360; --blue-light: #d6eaf8; --blue-mid: #2e86c1;
+      --text: #1a1a2e; --muted: #6b7280; --border: #e5e7eb; --bg: #f9fafb; --white: #fff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); }
+    h1,h2,h3 { font-family: 'Source Serif 4', serif; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* NAVBAR */
+    .util-bar { background: #f3f4f6; border-bottom: 1px solid var(--border); }
+    .util-inner { max-width: 1280px; margin: 0 auto; padding: 7px 2rem; display: flex; justify-content: flex-end; gap: 24px; }
+    .util-bar a { font-size: .73rem; color: #6b7280; display: flex; align-items: center; gap: 5px; }
+    .util-bar a:hover { color: var(--blue); }
+    .navbar { position: sticky; top: 0; z-index: 300; background: var(--white); border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; height: 66px; gap: 32px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; }
+    .nav-logo img { height: 36px; border-radius: 6px; }
+    .nav-logo .brand { font-family: 'Source Serif 4', serif; font-size: 1.1rem; font-weight: 700; color: var(--blue); }
+    .nav-logo .sub { font-size: .62rem; color: var(--muted); letter-spacing: .07em; text-transform: uppercase; }
+    nav.links { display: flex; gap: 2px; }
+    nav.links a { font-size: .84rem; font-weight: 500; color: var(--text); padding: .45rem .85rem; border-radius: 5px; transition: all .15s; white-space: nowrap; }
+    nav.links a:hover { background: var(--bg); color: var(--blue); }
+    .nav-right { margin-left: auto; display: flex; align-items: center; gap: 10px; }
+    .lang-btn { font-size: .78rem; padding: .3rem .7rem; border: 1px solid var(--border); border-radius: 5px; background: white; cursor: pointer; color: var(--muted); font-family: 'Inter', sans-serif; transition: all .15s; }
+    .lang-btn:hover { border-color: var(--blue-mid); color: var(--blue); }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; }
+    .hamburger span { display: block; width: 20px; height: 2px; background: #444; margin: 4px 0; border-radius: 2px; }
+    #mob-menu { display: none; border-top: 1px solid var(--border); background: white; }
+    #mob-menu.open { display: block; }
+    #mob-menu a { display: block; padding: .72rem 1.5rem; font-size: .88rem; color: var(--text); border-bottom: 1px solid #f3f4f6; }
+
+    /* ARTICLE LAYOUT */
+    .article-wrap { max-width: 780px; margin: 0 auto; padding: 56px 2rem 80px; }
+
+    /* BREADCRUMB */
+    .breadcrumb { display: flex; align-items: center; gap: 6px; font-size: .75rem; color: var(--muted); margin-bottom: 2rem; flex-wrap: wrap; }
+    .breadcrumb a { color: var(--muted); transition: color .15s; }
+    .breadcrumb a:hover { color: var(--blue); }
+    .breadcrumb span { color: #d1d5db; }
+
+    /* ARTICLE HEADER */
+    .art-tag { display: inline-block; background: var(--blue-light); color: var(--blue); font-size: .7rem; font-weight: 700; padding: .2rem .7rem; border-radius: 100px; letter-spacing: .05em; margin-bottom: .8rem; }
+    .art-title { font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; color: var(--text); line-height: 1.25; margin-bottom: .8rem; }
+    .art-meta { display: flex; align-items: center; gap: 16px; font-size: .8rem; color: var(--muted); padding-bottom: 1.4rem; border-bottom: 1px solid var(--border); margin-bottom: 2rem; flex-wrap: wrap; }
+    .art-meta span { display: flex; align-items: center; gap: 5px; }
+    .art-meta svg { width: 14px; height: 14px; }
+
+    /* MEDIA */
+    .art-media { margin-bottom: 2rem; border-radius: 8px; overflow: hidden; }
+    .art-media .vw { position: relative; padding-bottom: 56.25%; }
+    .art-media .vw iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .art-media img { width: 100%; max-height: 480px; object-fit: cover; }
+
+    /* ARTICLE BODY */
+    .art-body { font-size: .97rem; line-height: 1.85; color: #374151; }
+    .art-body p { margin-bottom: 1.2rem; }
+    .art-body h2 { font-size: 1.3rem; font-weight: 700; color: var(--text); margin: 2rem 0 .8rem; }
+    .art-body h3 { font-size: 1.1rem; font-weight: 700; color: var(--text); margin: 1.5rem 0 .6rem; }
+    .art-body ul, .art-body ol { padding-left: 1.5rem; margin-bottom: 1.2rem; }
+    .art-body li { margin-bottom: .4rem; }
+    .art-body blockquote { border-left: 3px solid var(--blue-mid); padding: .8rem 1.2rem; background: var(--blue-light); border-radius: 0 6px 6px 0; margin: 1.5rem 0; font-style: italic; color: var(--blue-dark); }
+    .art-body img { border-radius: 8px; margin: 1.5rem 0; }
+    .art-body strong { color: var(--text); }
+
+    /* LOADING / ERROR */
+    .art-loading { text-align: center; padding: 4rem 1rem; color: var(--muted); }
+    .art-loading .spinner { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--blue-mid); border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 1rem; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .art-error { text-align: center; padding: 4rem 1rem; }
+    .art-error h2 { font-size: 1.2rem; color: var(--text); margin-bottom: .5rem; }
+    .art-error p { font-size: .88rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .back-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--blue); color: white; padding: .6rem 1.4rem; border-radius: 6px; font-size: .84rem; font-weight: 600; transition: background .2s; }
+    .back-btn:hover { background: var(--blue-dark); }
+
+    /* RELATED */
+    .related { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+    .related h3 { font-family: 'Inter', sans-serif; font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 1.2rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .related-card { border: 1px solid var(--border); border-radius: 6px; overflow: hidden; cursor: pointer; transition: box-shadow .2s, transform .2s; }
+    .related-card:hover { box-shadow: 0 6px 20px rgba(0,0,0,.09); transform: translateY(-2px); }
+    .related-card .thumb { height: 110px; overflow: hidden; background: var(--bg); }
+    .related-card .thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .related-card .thumb .no-thumb { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; }
+    .related-card .rb { padding: .8rem; }
+    .related-card .rb .tag { font-size: .65rem; font-weight: 700; color: var(--blue); letter-spacing: .05em; text-transform: uppercase; }
+    .related-card .rb h4 { font-family: 'Inter', sans-serif; font-size: .8rem; font-weight: 700; color: var(--text); line-height: 1.35; margin-top: .25rem; }
+
+    /* FOOTER */
+    footer { background: #111827; color: white; }
+    .ft-bot { max-width: 1280px; margin: 0 auto; padding: 20px 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+    footer p { font-size: .76rem; color: rgba(255,255,255,.35); }
+    footer a { font-size: .76rem; color: rgba(255,255,255,.4); transition: color .2s; }
+    footer a:hover { color: #6dd5a8; }
+
+    @media (max-width: 768px) {
+      nav.links { display: none; }
+      .hamburger { display: block; }
+      .related-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .related-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="util-bar">
+  <div class="util-inner">
+    <a href="index.html#keanggotaan">Area Anggota</a>
+    <a href="index.html#keanggotaan">Daftar Anggota</a>
+  </div>
+</div>
+
+<header class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="Static/Images/logo_kpbs.png" alt="KPBS">
+      <div>
+        <span class="brand" style="display:block;line-height:1;">KPBS</span>
+        <span class="sub">Pangalengan</span>
+      </div>
+    </a>
+    <nav class="links">
+      <a href="index.html#tentang">Tentang Kami</a>
+      <a href="index.html#pelayanan">Pelayanan</a>
+      <a href="index.html#anak-perusahaan">Anak Perusahaan</a>
+      <a href="index.html#pengurus">Pengurus</a>
+      <a href="kegiatan.html">Kegiatan</a>
+    </nav>
+    <div class="nav-right">
+      <button class="lang-btn" id="lang-btn">🌐 ID</button>
+      <button class="hamburger" id="mob-btn"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <nav id="mob-menu">
+    <a href="index.html">Beranda</a>
+    <a href="index.html#tentang">Tentang Kami</a>
+    <a href="index.html#pelayanan">Pelayanan</a>
+    <a href="kegiatan.html">Kegiatan</a>
+    <a href="index.html#pengurus">Pengurus</a>
+    <a href="index.html#keanggotaan">Keanggotaan</a>
+  </nav>
+</header>
+
+<main>
+  <div class="article-wrap" id="article-wrap">
+    <div class="art-loading">
+      <div class="spinner"></div>
+      <p>Memuat artikel...</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="ft-bot">
+    <p>© 2025 KPBS Pangalengan. Hak cipta dilindungi undang-undang.</p>
+    <a href="kegiatan.html">← Kembali ke Kegiatan</a>
+  </div>
+</footer>
+
+<!-- Google Translate (hidden) -->
+<div id="google_translate_element" style="display:none;"></div>
+<script>
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'id',
+      includedLanguages: 'en,id',
+      autoDisplay: false
+    }, 'google_translate_element');
+  }
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script src="data.js"></script>
+<script>
+  // Mobile menu
+  document.getElementById('mob-btn').addEventListener('click', function() {
+    document.getElementById('mob-menu').classList.toggle('open');
+  });
+
+  // Translate toggle
+  var isEN = false;
+  document.getElementById('lang-btn').addEventListener('click', function() {
+    isEN = !isEN;
+    this.textContent = isEN ? '🌐 EN' : '🌐 ID';
+    var sel = document.querySelector('.goog-te-combo') ||
+              document.querySelector('#google_translate_element select');
+    if (sel) {
+      sel.value = isEN ? 'en' : 'id';
+      sel.dispatchEvent(new Event('change'));
+    }
+  });
+
+  // ── Ambil id artikel dari URL: detail.html?id=3
+  function getParam(key) {
+    return new URLSearchParams(window.location.search).get(key);
+  }
+
+  // ── Konversi teks artikel jadi HTML
+  // Baris kosong = paragraf baru
+  // ## Judul = <h2>, ### Judul = <h3>
+  // **teks** = bold, > teks = blockquote
+  function textToHTML(text) {
+    if (!text) return '';
+    var lines = String(text).split('\n');
+    var html = '';
+    var inList = false;
+
+    lines.forEach(function(line) {
+      line = line.trim();
+      if (!line) {
+        if (inList) { html += '</ul>'; inList = false; }
+        return;
+      }
+      // Heading 2
+      if (line.startsWith('## ')) {
+        html += '<h2>' + line.slice(3) + '</h2>';
+      // Heading 3
+      } else if (line.startsWith('### ')) {
+        html += '<h3>' + line.slice(4) + '</h3>';
+      // Blockquote
+      } else if (line.startsWith('> ')) {
+        html += '<blockquote>' + line.slice(2) + '</blockquote>';
+      // List item
+      } else if (line.startsWith('- ')) {
+        if (!inList) { html += '<ul>'; inList = true; }
+        html += '<li>' + line.slice(2) + '</li>';
+      // Normal paragraph
+      } else {
+        if (inList) { html += '</ul>'; inList = false; }
+        // **bold**
+        line = line.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+        html += '<p>' + line + '</p>';
+      }
+    });
+    if (inList) html += '</ul>';
+    return html;
+  }
+
+  // ── Render artikel
+  function renderArticle(item, allItems) {
+    var wrap = document.getElementById('article-wrap');
+
+    // Media
+    var mediaHTML = '';
+    if (item.youtubeId && item.youtubeId.trim()) {
+      mediaHTML = '<div class="art-media"><div class="vw"><iframe src="https://www.youtube.com/embed/' + item.youtubeId.trim() + '" frameborder="0" allowfullscreen></iframe></div></div>';
+    } else if (item.fotoUrl && item.fotoUrl.trim()) {
+      mediaHTML = '<div class="art-media"><img src="' + item.fotoUrl.trim() + '" alt="' + item.judul + '"></div>';
+    }
+
+    // Konten artikel (kolom 'konten' dari Sheets)
+    var bodyHTML = item.konten
+      ? '<div class="art-body">' + textToHTML(item.konten) + '</div>'
+      : '<div class="art-body"><p>' + (item.deskripsi || '') + '</p></div>';
+
+    // Related articles (max 3, exclude current)
+    var related = allItems.filter(function(k){ return k.judul !== item.judul; }).slice(0,3);
+    var relatedHTML = '';
+    if (related.length) {
+      relatedHTML = '<div class="related"><h3>Kegiatan Lainnya</h3><div class="related-grid">' +
+        related.map(function(k) {
+          var thumb = k.fotoUrl
+            ? '<img src="' + k.fotoUrl + '" alt="' + k.judul + '">'
+            : '<div class="no-thumb">📷</div>';
+          var idx = allItems.indexOf(k);
+          return '<div class="related-card" onclick="window.location=\'detail.html?id=' + idx + '\'">' +
+            '<div class="thumb">' + thumb + '</div>' +
+            '<div class="rb"><div class="tag">' + k.kategori + '</div><h4>' + k.judul + '</h4></div>' +
+            '</div>';
+        }).join('') +
+      '</div></div>';
+    }
+
+    // Update page title
+    document.title = item.judul + ' – KPBS Pangalengan';
+
+    wrap.innerHTML =
+      '<div class="breadcrumb">' +
+        '<a href="index.html">Beranda</a><span>›</span>' +
+        '<a href="kegiatan.html">Kegiatan</a><span>›</span>' +
+        '<span>' + item.judul + '</span>' +
+      '</div>' +
+      '<span class="art-tag">' + item.kategori + '</span>' +
+      '<h1 class="art-title">' + item.judul + '</h1>' +
+      '<div class="art-meta">' +
+        '<span><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>' + (item.tanggal || '') + '</span>' +
+        '<span><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>' + (item.kategori || '') + '</span>' +
+      '</div>' +
+      mediaHTML +
+      bodyHTML +
+      relatedHTML +
+      '<div style="margin-top:2.5rem;">' +
+        '<a href="kegiatan.html" class="back-btn"><svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/></svg> Kembali ke Kegiatan</a>' +
+      '</div>';
+  }
+
+  // ── Main: fetch dan tampilkan
+  var idx = parseInt(getParam('id') || '0', 10);
+
+  KPBS.getKegiatan().then(function(items) {
+    if (!items || !items.length) {
+      document.getElementById('article-wrap').innerHTML =
+        '<div class="art-error"><h2>Data tidak ditemukan</h2><p>Tidak ada artikel yang tersedia.</p><a href="kegiatan.html" class="back-btn">← Kembali</a></div>';
+      return;
+    }
+    var item = items[idx] || items[0];
+    renderArticle(item, items);
+  }).catch(function() {
+    document.getElementById('article-wrap').innerHTML =
+      '<div class="art-error"><h2>Gagal memuat artikel</h2><p>Periksa koneksi internet atau coba lagi nanti.</p><a href="kegiatan.html" class="back-btn">← Kembali</a></div>';
+  });
+</script>
+</body>
+</html>

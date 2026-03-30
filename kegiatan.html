@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kegiatan – KPBS Pangalengan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue: #1a5276; --blue-dark: #154360; --blue-light: #d6eaf8; --blue-mid: #2e86c1;
+      --text: #1a1a2e; --muted: #6b7280; --border: #e5e7eb; --bg: #f9fafb; --white: #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; font-size: 15px; }
+    h1,h2,h3 { font-family: 'Source Serif 4', serif; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .util-bar { background: #f3f4f6; border-bottom: 1px solid var(--border); }
+    .util-inner { max-width: 1280px; margin: 0 auto; padding: 7px 2rem; display: flex; justify-content: flex-end; align-items: center; gap: 24px; }
+    .util-bar a { font-size: .73rem; color: #6b7280; display: flex; align-items: center; gap: 5px; transition: color .15s; }
+    .util-bar a:hover { color: var(--blue); }
+
+    .navbar { position: sticky; top: 0; z-index: 300; background: var(--white); border-bottom: 1px solid var(--border); }
+    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; height: 66px; gap: 32px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .nav-logo img { height: 36px; border-radius: 6px; }
+    .nav-logo-text .brand { font-family: 'Source Serif 4', serif; font-size: 1.1rem; font-weight: 700; color: var(--blue); display: block; line-height: 1; }
+    .nav-logo-text .sub { font-size: .62rem; color: var(--muted); letter-spacing: .07em; text-transform: uppercase; }
+    nav.links { display: flex; align-items: center; gap: 2px; }
+    nav.links a { font-size: .84rem; font-weight: 500; color: var(--text); padding: .45rem .85rem; border-radius: 5px; transition: all .15s; white-space: nowrap; display: flex; align-items: center; gap: 3px; }
+    nav.links a:hover, nav.links a.active { background: var(--bg); color: var(--blue); }
+    nav.links svg { width: 11px; height: 11px; opacity: .45; }
+    .nav-right { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+    .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 2px; }
+    .hamburger span { display: block; width: 20px; height: 2px; background: #444; margin: 4px 0; border-radius: 2px; }
+    #mob-menu { display: none; border-top: 1px solid var(--border); background: white; }
+    #mob-menu.open { display: block; }
+    #mob-menu a { display: block; padding: .72rem 1.5rem; font-size: .88rem; color: var(--text); border-bottom: 1px solid #f3f4f6; }
+
+    /* PAGE HEADER */
+    .page-header { background: var(--blue); padding: 72px 0 52px; position: relative; overflow: hidden; }
+    .page-header::before { content: ''; position: absolute; inset: 0; background: url('https://d147a5vd7kzml6.cloudfront.net/img/cowsignals_com/2614/2560x1440/resize:fixed/cowsignals_2560px.jpg') center/cover; opacity: .12; }
+    .ph-inner { position: relative; z-index: 2; max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+    .breadcrumb { display: flex; align-items: center; gap: 7px; font-size: .72rem; color: rgba(255,255,255,.55); margin-bottom: .8rem; }
+    .breadcrumb a { color: rgba(255,255,255,.55); transition: color .15s; }
+    .breadcrumb a:hover { color: white; }
+    .breadcrumb span { color: rgba(255,255,255,.3); }
+    .page-header h1 { font-size: 2.4rem; color: white; font-weight: 700; margin-bottom: .6rem; }
+    .page-header p { color: rgba(255,255,255,.65); font-size: .88rem; max-width: 440px; }
+
+    /* MAIN SECTION */
+    .main-sec { padding: 60px 0 80px; }
+    .cnt { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+
+    /* FILTER BAR */
+    .filter-bar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: 2rem; padding: 1.1rem 1.4rem; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; }
+    .search-wrap { position: relative; flex: 1; min-width: 200px; max-width: 300px; }
+    .search-wrap input { width: 100%; padding: .6rem .9rem .6rem 2.4rem; border: 1px solid var(--border); border-radius: 6px; font-size: .84rem; font-family: 'Inter', sans-serif; background: white; color: var(--text); transition: border-color .15s; }
+    .search-wrap input:focus { outline: none; border-color: var(--blue-mid); }
+    .search-wrap svg { position: absolute; left: .75rem; top: 50%; transform: translateY(-50%); width: 15px; height: 15px; color: #9ca3af; }
+    .filter-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+    .f-btn { font-size: .74rem; font-weight: 600; padding: .36rem .9rem; border-radius: 100px; border: 1.5px solid var(--border); background: white; cursor: pointer; transition: all .15s; font-family: 'Inter', sans-serif; color: var(--muted); }
+    .f-btn:hover { border-color: var(--blue-mid); color: var(--blue); }
+    .f-btn.active { background: var(--blue); border-color: var(--blue); color: white; }
+
+    /* ACTIVITIES GRID */
+    #activitiesGrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .ac { background: white; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; transition: box-shadow .22s, transform .22s; }
+    .ac:hover { box-shadow: 0 8px 28px rgba(0,0,0,.09); transform: translateY(-2px); }
+    .vw { position: relative; padding-bottom: 56.25%; }
+    .vw iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .ac-body { padding: 1rem 1.1rem 1.2rem; }
+    .ac-body h3 { font-family: 'Inter', sans-serif; font-size: .88rem; font-weight: 700; color: var(--text); line-height: 1.4; margin-bottom: .4rem; }
+    .ac-body p { font-size: .79rem; color: var(--muted); line-height: 1.55; margin-bottom: .7rem; }
+    .tag { display: inline-block; background: var(--blue-light); color: var(--blue); font-size: .67rem; font-weight: 700; padding: .18rem .65rem; border-radius: 100px; }
+    .empty { grid-column: 1/-1; text-align: center; padding: 4rem 1rem; color: var(--muted); }
+    .empty svg { width: 44px; height: 44px; opacity: .25; margin: 0 auto .8rem; }
+
+    footer { background: #111827; color: white; }
+    .ft-bot { max-width: 1280px; margin: 0 auto; padding: 24px 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; border-top: 1px solid rgba(255,255,255,.07); }
+    .ft-bot p { font-size: .76rem; color: rgba(255,255,255,.35); }
+    .ft-bot a { font-size: .76rem; color: rgba(255,255,255,.4); }
+    .ft-bot a:hover { color: #6dd5a8; }
+
+    @media (max-width: 1024px) { #activitiesGrid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 768px) { nav.links { display: none; } .hamburger { display: block; } }
+    @media (max-width: 560px) { #activitiesGrid { grid-template-columns: 1fr; } .filter-bar { flex-direction: column; align-items: stretch; } .search-wrap { max-width: 100%; } }
+  </style>
+</head>
+<body>
+
+<div class="util-bar">
+  <div class="util-inner">
+    <a href="index.html#keanggotaan">Area Anggota</a>
+    <a href="index.html#keanggotaan">Daftar Anggota</a>
+  </div>
+</div>
+
+<header class="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="Static/Images/logo_kpbs.png" alt="KPBS">
+      <div class="nav-logo-text"><span class="brand">KPBS</span><span class="sub">Pangalengan</span></div>
+    </a>
+    <nav class="links">
+      <a href="index.html#tentang">Tentang Kami <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg></a>
+      <a href="index.html#pelayanan">Pelayanan <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg></a>
+      <a href="index.html#anak-perusahaan">Anak Perusahaan</a>
+      <a href="index.html#pengurus">Pengurus <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg></a>
+      <a href="kegiatan.html" class="active">Kegiatan</a>
+    </nav>
+    <div class="nav-right">
+      <button class="lang-btn" id="lang-btn" style="font-size:.78rem;padding:.3rem .7rem;border:1px solid #e5e7eb;border-radius:5px;background:white;cursor:pointer;color:#6b7280;font-family:Inter,sans-serif;">🌐 ID</button>
+      <button class="hamburger" id="mob-btn"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <nav id="mob-menu">
+    <a href="index.html">Beranda</a>
+    <a href="index.html#tentang">Tentang Kami</a>
+    <a href="index.html#pelayanan">Pelayanan</a>
+    <a href="kegiatan.html">Kegiatan</a>
+    <a href="index.html#pengurus">Pengurus</a>
+    <a href="index.html#keanggotaan">Keanggotaan</a>
+  </nav>
+</header>
+
+<div class="page-header">
+  <div class="ph-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Beranda</a><span>›</span>
+      <span style="color:rgba(255,255,255,.9)">Kegiatan</span>
+    </div>
+    <h1>Kegiatan Kami</h1>
+    <p>Telusuri berbagai kegiatan dan inisiatif terbaru dari KPBS Pangalengan.</p>
+  </div>
+</div>
+
+<section class="main-sec">
+  <div class="cnt">
+    <div class="filter-bar">
+      <div class="search-wrap">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="searchInput" placeholder="Cari kegiatan...">
+      </div>
+      <div class="filter-tags" id="filterButtons"></div>
+    </div>
+    <div id="activitiesGrid"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="ft-bot">
+    <p>© 2025 KPBS Pangalengan. Hak cipta dilindungi undang-undang.</p>
+    <a href="index.html">← Kembali ke Beranda</a>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script>
+  document.getElementById('mob-btn').addEventListener('click', () => document.getElementById('mob-menu').classList.toggle('open'));
+
+  // ── Load dari data.js ──
+  let allData = [];
+
+  const grid = document.getElementById('activitiesGrid');
+  const search = document.getElementById('searchInput');
+  const filterCont = document.getElementById('filterButtons');
+
+  function renderCard(k, idx) {
+    var media = (k.youtubeId && k.youtubeId.trim())
+      ? '<div class="vw"><iframe src="https://www.youtube.com/embed/' + k.youtubeId.trim() + '" frameborder="0" allowfullscreen></iframe></div>'
+      : k.fotoUrl
+        ? '<div style="height:180px;overflow:hidden;"><img src="' + k.fotoUrl + '" alt="' + k.judul + '" style="width:100%;height:100%;object-fit:cover;"></div>'
+        : '<div style="height:140px;background:#f3f4f6;display:flex;align-items:center;justify-content:center;color:#9ca3af;font-size:.8rem;">📷 Tidak ada media</div>';
+    return '<div class="ac">' + media +
+      '<div class="ac-body">' +
+        '<div style="font-size:.68rem;color:#6b7280;margin-bottom:.3rem;">' + k.tanggal + '</div>' +
+        '<h3>' + k.judul + '</h3>' +
+        '<p>' + k.deskripsi + '</p>' +
+        '<div style="display:flex;align-items:center;justify-content:space-between;margin-top:.6rem;">' +
+          '<span class="tag">' + k.kategori + '</span>' +
+          '<a href="detail.html?id=' + idx + '" style="font-size:.75rem;font-weight:700;color:#1a5276;display:flex;align-items:center;gap:4px;">Baca selengkapnya →</a>' +
+        '</div>' +
+      '</div></div>';
+  }
+
+  function renderList(list) {
+    grid.innerHTML = '';
+    if (!list.length) {
+      grid.innerHTML = `<div class="empty"><svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg><p>Tidak ada kegiatan yang ditemukan.</p></div>`;
+      return;
+    }
+    grid.innerHTML = list.map(function(k, i){ return renderCard(k, allData.indexOf(k)); }).join('');
+  }
+
+  function doFilter() {
+    const q = search.value.toLowerCase();
+    const cat = filterCont.querySelector('.active')?.dataset.cat || 'Semua';
+    let r = allData;
+    if (cat !== 'Semua') r = r.filter(k => k.kategori === cat);
+    if (q) r = r.filter(k => k.judul.toLowerCase().includes(q) || k.deskripsi.toLowerCase().includes(q) || k.kategori.toLowerCase().includes(q));
+    renderList(r);
+  }
+
+  function buildFilters(data) {
+    filterCont.innerHTML = '';
+    ['Semua', ...new Set(data.map(k => k.kategori))].forEach((c, i) => {
+      const b = document.createElement('button');
+      b.textContent = c; b.className = 'f-btn' + (i===0?' active':''); b.dataset.cat = c;
+      b.addEventListener('click', () => { filterCont.querySelectorAll('.f-btn').forEach(x=>x.classList.remove('active')); b.classList.add('active'); doFilter(); });
+      filterCont.appendChild(b);
+    });
+  }
+
+  // Loading state
+  grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:#9ca3af;font-size:.85rem;">Memuat data...</div>';
+
+  KPBS.getKegiatan().then(data => {
+    allData = data;
+    buildFilters(data);
+    renderList(data);
+  });
+
+  search.addEventListener('input', doFilter);
+</script>
+<!-- Google Translate -->
+<div id="google_translate_element" style="display:none;"></div>
+<script>
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({ pageLanguage: 'id', includedLanguages: 'en,id', autoDisplay: false }, 'google_translate_element');
+  }
+  var isEN = false;
+  window.addEventListener('load', function() {
+    var btn = document.getElementById('lang-btn');
+    if (!btn) return;
+    btn.addEventListener('click', function() {
+      isEN = !isEN;
+      btn.textContent = isEN ? '🌐 EN' : '🌐 ID';
+      var sel = document.querySelector('.goog-te-combo') || document.querySelector('#google_translate_element select');
+      if (sel) { sel.value = isEN ? 'en' : 'id'; sel.dispatchEvent(new Event('change')); }
+    });
+  });
+</script>
+<script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+</html>
